@@ -1,0 +1,43 @@
+#dropContainer,#dropContainer1,#dropContainer2{
+    padding: 25% 0%;
+    /* margin: 0% 5%; */
+    width: 100%;
+    background:#fff;
+    border-radius: 10px;
+    border: 2px dashed #aaa;
+    transition: height 500ms;
+    /* height: 100%; */
+}
+#dropContainer{
+    padding: 10%;
+}
+/* #fileInput,#fileInput1,#fileInput2{
+    display: none;
+} */
+/* #usernameInputs{
+    max-height: 200px;
+    overflow: auto;
+} */
+/* #usernameInputs::-webkit-scrollbar {
+    display: none;
+} */
+
+#formId{
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    margin: 20px;
+    /* box-shadow: inset 0 0px 2px #333; */
+}
+
+
+.delete {
+    background-image: url("../icon/delete.png");
+    width: 20px;
+    height: 20px;
+    border: 0;
+    cursor: pointer;
+}
+
+.upDownMargin{
+    margin : 25px 0 ;
+}

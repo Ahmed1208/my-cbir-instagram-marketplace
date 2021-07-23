@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBIR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/static/css/main.css" rel="stylesheet">
+
+</head>
+<body class="p-2 bg-light">
+
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <h2 class="navbar-brand mx-5"> Build Your own Marketplace </h2>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Clocks
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" data-username="store_clocks" href="#">store_clocks</a></li>
+        <li><a class="dropdown-item" data-username="theclocksstore" href="#">theclocksstore</a></li>
+        <li><a class="dropdown-item" data-username="watches.saleegypt" href="#">watches.saleegypt</a></li>
+      </ul>
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Cloths
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+        <li><a class="dropdown-item" href="#">mans_suits_fashion</a></li>
+        <li><a class="dropdown-item" href="#">bershka.baku</a></li>
+      </ul>
+    </li>
+    </div>
+</nav> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark  bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand"> Find what you need </a>
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Clocks
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" data-username="store_clocks">store_clocks</a></li>
+            <li><a class="dropdown-item" data-username="theclocksstore">theclocksstore</a></li>
+            <li><a class="dropdown-item" data-username="watches.saleegypt">watches.saleegypt</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item dropdown-item-all">All</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Classic
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" data-username="mans_suits_fashion">mans_suits_fashion</a></li>
+            <li><a class="dropdown-item" data-username="bershka.baku">bershka.baku</a></li>
+            <li><a class="dropdown-item" data-username="onemore.egypt">onemore.egypt</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item dropdown-item-all">All</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Shoes
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" data-username="nike.__shoes">nike.__shoes</a></li>
+            <li><a class="dropdown-item" data-username="nikeegyptt">nikeegyptt</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item dropdown-item-all">All</a></li>
+          </ul>
+        </li>
+
+          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Training Suits
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" data-username="sell_of_training_suits">sell_of_training_suits</a></li>
+            <li><a class="dropdown-item" data-username="Nike">Nike</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item dropdown-item-all">All</a></li>
+          </ul>
+        </li>
+
+
+    </div>
+  </div>
+</nav>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-8 col-md-push-4 my-4">
+
+              <div class="row row-cols-1 row-cols-md-3">
+                {% if results %}
+                {% for r in results %}
+                <div class="col mb-4">
+                  <div class="card h-100">
+
+                    {% if query_image_url %}
+                      <form action="/instagram/imageSimilarity/removeImage" method="post">
+                            <img src="http://127.0.0.1:5000/{{r.img}}" class="card-img-top" alt="result">
+                            <div class="card-img-overlay">
+                                    <input type="hidden" name="id" value= "{{query_image_url}},{{r.img}}"  />
+                                    <input type="submit" class="delete" value="" onclick="return confirm('Sure?')" />
+                            </div>
+                      </form>
+                    {% else %}
+                        <img src="http://127.0.0.1:5000/{{r.img}}" class="card-img-top" alt="result">
+                    {% endif %}
+
+
+                      <div class="card-body text-center">
+                          {% if query_image_url.replace("static/uploads","static/uploads/"+r.username)  == r.img.replace("\\","/") %}
+                      <h5 class="card-title">{{r.username}} : best match </h5>
+                          {% else %}
+                          <h5 class="card-title">{{r.username}}</h5>
+                          {% endif %}
+                      <p class="card-text"><small>{{r.desc}}</small></p>
+                      <a target="_blank" href="{{r.link}}" class="btn btn-primary my-auto">More Info</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+
+            </div>
+            <div id="searching-sidebar" class="col-md-4 col-md-pull-8 bg-white" style="height: 100vh;padding: 20px;position: sticky;top: 0vh; overflow-y: scroll;">
+
+                <div>
+                <form method="get" action="/instagram/refresh" >
+                    <button type="submit" class="btn btn-outline-success text-center col-lg-8 upDownMargin w-80">Back To Main Page</button>
+                </form>
+                </div>
+
+              <div id="usernameInputs" class="row">
+              <form method="post" action="/instagram/store" enctype="multipart/form-data">
+              <label for="Url" class="form-label my-1"><strong>stores:</strong></label>
+
+
+                <div class="row">
+                  <div class="col-7 m-0">
+                    <input type="text" name="allUsername" class="form-control" autocomplete="off" placeholder="e.g. store_clocks">
+                  </div>
+                  <div class="btn-group text-center m-0 col-5">
+                    <button id="addUser" class="btn btn-outline-dark text-center col-lg-4"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button id="submitUsers" type="submit" class="btn btn-outline-success text-center col-lg-8">submit</button>
+                  </div>
+                </div>
+                  <div id="userNamesBadges" class="my-2">
+                      {% if badges %}
+                      {% for b in badges %}
+                      <span class="badge bg-dark m-1" data-username="{{b}}">{{b}}<span class="dark px-2 removeUserBadge"><svg class="svg-inline--fa fa-times fa-w-11 float-end" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg><!-- <i class="fas fa-times float-end"></i> Font Awesome fontawesome.com --></span><input name="username" style="display: none;"></span>
+                      {% endfor %}
+                      {% endif %}
+                  </div>
+                  </form>
+
+
+
+               <div >
+
+                <form method="get" action="/instagram/removeDuplicate" class=" upDownMargin " >
+                    <label class="form-label my-1"><strong>Remove Duplicates:</strong></label>
+                    <button type="submit" class="btn btn-outline-success text-center col-lg-8  w-100">remove duplicate</button>
+                </form>
+                </div>
+
+                  <form method="post" action="/instagram/imageSimilarity" enctype="multipart/form-data" >
+
+                  <label class="form-label my-1"><strong>Search for query image:</strong></label>
+                  {% if query_image_url %}
+
+                      <img width="400" height="400" src="http://127.0.0.1:5000/{{query_image_url}}" style="padding: 10%; object-fit: contain;" class="text-center"/>
+
+                  {% endif %}
+                    <input id="fileInput" type="file" name="file" class="form-control" autocomplete="off" >
+                    {% if maxShownImages %}
+                    <label for="Url" class="form-label my-1"><strong>number of similar items queried (max {{maxShownImages}}):</strong></label>
+                    <input type="number" name="resCount" class="form-control my-2" value="6" autocomplete="off" min="1"  placeholder="similar images Count">
+                    {% else %}
+                    <label for="Url" class="form-label my-1"><strong>number of items:</strong></label>
+                      <input type="number" name="resCount" class="form-control my-2" disabled autocomplete="off" min="1" max="5" placeholder="similar images Count (disabled)">
+                    {% endif %}
+                    <input type="submit" value="Get Similar" class="btn btn-primary col-sm-12 my-4">
+
+                  </form>
+                </div>
+
+
+            <div >
+                      <form action="/instagram/descriptonSearch" method="post">
+
+                            <label class="form-label my-1"><strong>Search by text (Description):</strong></label>
+                            <input type="text" name="id"  autocomplete="off" />
+                            <input type="submit" value="submit" />
+                      </form>
+            </div>
+
+
+          </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script defer src="/static/icon/fontawesome-free-5.15.3-web/js/all.js"></script>
+    <script  src="{{ url_for('static', filename='js/instagram.js') }}"></script>
+
+    <script>
+        let removeBadges = document.querySelectorAll('.removeUserBadge');
+        for (f in removeBadges) {
+            f.onclick = e => {
+                e.preventDefault();
+                e.target.closest(".badge").remove();
+            }
+        }
+    </script>
+
+
+
+</body>
+</html>
